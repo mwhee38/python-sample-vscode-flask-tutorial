@@ -34,3 +34,19 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'PythonWebApp'
+    organization: 'mwhee38'
+    scannerMode: 'MSBuild'
+    projectKey: 'PythonWebApp'
+    projectName: 'PythonWebApp'
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: SonarCloudAnalyze@1
+  inputs:
+    jdkversion: 'JAVA_HOME_11_X64'
